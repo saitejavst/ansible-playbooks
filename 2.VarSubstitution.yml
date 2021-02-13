@@ -1,0 +1,20 @@
+--- # Playbook with Variable Substitution
+-   hosts: '{{ myHosts }}'
+    remote_user: '{{ sudoUser }}'
+    become: '{{ becomeSudoUser }}'
+    become_method: sudo
+    connection: ssh
+    gather_facts: '{{ gather }}'
+    vars:
+        myHosts: centos
+        gather: yes
+        pkg: telnet  
+        sudoUser: centos    
+        becomeSudoUser: yes        
+    tasks:
+    - name: Install telnet server on centos
+      yum:
+        name: '{{ pkg }}'
+        state: latest    
+      register: output
+
